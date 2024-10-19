@@ -1,0 +1,1 @@
+await require("./main").init(hexo);

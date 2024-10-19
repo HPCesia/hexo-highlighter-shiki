@@ -1,0 +1,32 @@
+{
+  "name": "hexo-highlight-shiki",
+  "version": "1.0.0",
+  "description": "A package for Hexo which use Shiki to render code highlight.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "node ./build.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HPCesia/hexo-highlight-shiki.git"
+  },
+  "keywords": [
+    "hexo",
+    "shiki",
+    "code",
+    "highlight"
+  ],
+  "author": "HPCesia",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.7.6",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "shiki": "^1.22.0"
+  },
+  "peerDependencies": {
+    "hexo": "^7.0.0"
+  }
+}
