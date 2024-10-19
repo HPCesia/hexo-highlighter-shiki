@@ -54,6 +54,24 @@ shiki:
 ```
 See [Dual Themes](https://shiki.style/guide/dual-themes) for how to switch between multiple themes.
 
+## Bugs
+### mathjax
+If you are using [hexo-filter-mathjax](https://github.com/next-theme/hexo-filter-mathjax) or any other plugin that uses mathjax to render mathematical formulas locally, you may encounter an `Error: Can't find handler for document` when rendering articles that include code blocks and have mathjax rendering enabled. This is a problem with mathjax, as its LiteDOM cannot parse complex HTML fragments.
+
+#### Solution
+
+For example, if you are using the hexo-filter-mathjax plugin, modify the [this line](https://github.com/next-theme/hexo-filter-mathjax/blob/20dc61352f8cf4d19425ad1833eb72b467c212ef/index.js#L20C3-L20C40) in the source code:
+```js
+- data.content = mathjax(data.content);
++ data.content = data.content.replace(/<span\s+class="math\s+[^"]*">\\[\(\[].*?\\[\)\]]<\/span>/gs, mathjax);
+```
+This will prevent rendering errors for complex HTML fragments that result in `Can't find handler for document`.
+
+#### Related Issues:
+- [Error in applying html the markdown file #26](https://github.com/next-theme/hexo-filter-mathjax/issues/26)
+- [Can't find handler for document #265](https://github.com/mathjax/MathJax-src/issues/265)
+
+
 ## Acknowledgments
 This plugin is developed based on
 - [ArcticLampyrid/hexo-shiki-highlighter](https://github.com/ArcticLampyrid/hexo-shiki-highlighter)
