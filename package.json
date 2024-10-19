@@ -1,14 +1,25 @@
 {
-  "name": "hexo-highlight-shiki",
+  "name": "hexo-highlighter-shiki",
   "version": "1.0.0",
   "description": "A package for Hexo which use Shiki to render code highlight.",
   "main": "dist/index.js",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "README_zh-CN.md",
+    "package.json"
+  ],
   "scripts": {
     "build": "node ./build.mjs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HPCesia/hexo-highlight-shiki.git"
+    "url": "git+https://github.com/HPCesia/hexo-highlighter-shiki.git"
+  },
+  "homepage": "https://github.com/HPCesia/hexo-highlighter-shiki",
+  "bugs": {
+    "url": "https://github.com/HPCesia/hexo-highlighter-shiki/issues"
   },
   "keywords": [
     "hexo",

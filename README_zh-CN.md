@@ -13,7 +13,7 @@
 ## 安装与配置
 首先，安装本插件：
 ```shell
-npm install hexo-highlight-shiki --save
+npm install hexo-highlighter-shiki --save
 ```
 
 然后在 `config.yml` 中切换代码高亮引擎：

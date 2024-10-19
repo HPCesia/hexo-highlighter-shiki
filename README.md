@@ -13,7 +13,7 @@ Hexo v7.0.0+ is required.
 ## Installation and Configuration
 First, install the plugin:
 ```shell
-npm install hexo-highlight-shiki --save
+npm install hexo-highlighter-shiki --save
 ```
 
 Then switch the code highlighting engine in your `config.yml`:
