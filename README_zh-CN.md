@@ -35,6 +35,7 @@ shiki:
   line_number: false
   strip_indent: true
   tab_replace: "  "
+  pre_style: true # Preserve the style of the <pre> tag, i.e., the theme's `background-color`.
   additional:
     langs: # List of the TextMate grammar json of languages to be added.
       - path/to/lang_grammar.json
@@ -55,7 +56,7 @@ shiki:
 
 ## Bugs
 ### mathjax
-如果你正在使用 [hexo-filter-mathjax](https://github.com/next-theme/hexo-filter-mathjax) 或其他任意在本地使用 mathjax 渲染数学公式的插件，在渲染包含代码块且开启 mathjax 渲染的文章时可能会出现 `Error: Can't find handler for document`。这是 mathjax 的问题，mathjax 的 LiteDOM 无法解析复杂的 HTML 片段。
+如果你正在使用 [hexo-filter-mathjax](https://github.com/next-theme/hexo-filter-mathjax) 或其他任意在本地使用 mathjax 渲染数学公式的插件，在渲染包含代码块且开启 mathjax 渲染的文章时可能会出现 `Error: Can't find handler for document`。这是 mathjax 的问题，mathjax 的 LiteDOM adaptor 无法解析复杂的 HTML 片段。
 
 #### 解决方法
 

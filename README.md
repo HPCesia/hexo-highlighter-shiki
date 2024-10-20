@@ -36,6 +36,7 @@ shiki:
   line_number: false
   strip_indent: true
   tab_replace: "  "
+  pre_style: true # Preserve the style of the <pre> tag, i.e., the theme's `background-color`.
   additional:
     langs: # List of the TextMate grammar json of languages to be added.
       - path/to/lang_grammar.json
@@ -56,7 +57,7 @@ See [Dual Themes](https://shiki.style/guide/dual-themes) for how to switch betwe
 
 ## Bugs
 ### mathjax
-If you are using [hexo-filter-mathjax](https://github.com/next-theme/hexo-filter-mathjax) or any other plugin that uses mathjax to render mathematical formulas locally, you may encounter an `Error: Can't find handler for document` when rendering articles that include code blocks and have mathjax rendering enabled. This is a problem with mathjax, as its LiteDOM cannot parse complex HTML fragments.
+If you are using [hexo-filter-mathjax](https://github.com/next-theme/hexo-filter-mathjax) or any other plugin that uses mathjax to render mathematical formulas locally, you may encounter an `Error: Can't find handler for document` when rendering articles that include code blocks and have mathjax rendering enabled. This is a problem with mathjax, as its LiteDOM adaptor cannot parse complex HTML fragments.
 
 #### Solution
 
