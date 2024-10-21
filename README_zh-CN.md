@@ -66,7 +66,18 @@ shiki:
       your_alias2: lang_name2
 ```
 
-例如，如果你想标记某些行，你可以使用 Hexo 的代码块标签插件（本插件对其做了适配）：
+额外地，你可以在 `theme` 选项中指定多个主题：
+```yaml
+shiki:
+  theme:
+    light: one-light
+    dark: one-dark-pro
+    # ...
+```
+在 [Dual Themes](https://shiki.style/guide/dual-themes) 中查看如何切换多个主题。
+
+### 转换器使用示例
+如果你想标记某些行，你可以使用 Hexo 的代码块标签插件（本插件对其做了适配）：
 ```markdown
 {% codeblock lang:rust mark:2 %}
 fn main() {
@@ -81,7 +92,7 @@ transformers:
   - name: transformerNotationHighlight
     option:
       classActiveLine: marked # 与 Hexo 的代码块标签标记行的类相同，默认值：highlighted
-      classActivePre: '' # 默认值：has-highlighted
+      classActivePre: "" # 默认值：has-highlighted
 ```
 并在你的代码块中添加一些注释：
 ````markdown
@@ -93,26 +104,17 @@ fn main() {
 ````
 结果与 Hexo 的代码块标签插件相同。
 
-额外地，你可以在 `theme` 选项中指定多个主题：
-```yaml
-shiki:
-  theme:
-    light: one-light
-    dark: one-dark-pro
-    # ...
-```
-在 [Dual Themes](https://shiki.style/guide/dual-themes) 中查看如何切换多个主题。
-
 ## Bugs
 ### mathjax
 如果你正在使用 [hexo-filter-mathjax](https://github.com/next-theme/hexo-filter-mathjax) 或其他任意在本地使用 mathjax 渲染数学公式的插件，在渲染包含代码块且开启 mathjax 渲染的文章时可能会出现 `Error: Can't find handler for document`。这是 mathjax 的问题，mathjax 的 LiteDOM adaptor 无法解析复杂的 HTML 片段。
 
 #### 解决方法
-
 以 hexo-filter-mathjax 插件为例，修改源代码中的[这一行](https://github.com/next-theme/hexo-filter-mathjax/blob/20dc61352f8cf4d19425ad1833eb72b467c212ef/index.js#L20C3-L20C40):
 ```js
 - data.content = mathjax(data.content);
-+ data.content = data.content.replace(/<span\s+class="math\s+[^"]*">\\[\(\[].*?\\[\)\]]<\/span>/gs, mathjax);
++ data.content = data.content.replace(
++   /<span\s+class="math\s+[^"]*">\\[\(\[].*?\\[\)\]]<\/span>/gs,
++   mathjax);
 ```
 这可以避免对那些复杂的 HTML 片段进行渲染导致的 `Can't find handler for document` 错误。
 

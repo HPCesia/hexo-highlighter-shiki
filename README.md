@@ -45,17 +45,21 @@ shiki:
   line_number: false # default: false
   strip_indent: true # default: true
   tab_replace: "  " # default: "  "
-  pre_style: true # Preserve the style of the <pre> tag, i.e., the theme's `background-color`. default: true
+  pre_style: true # Preserve the style of the <pre> tag. default: true
   default_color: light # Only take effect when using multiple themes. default: light
   css_variable_prefix: --shiki- # Only take effect when using multiple themes. default: --shiki-
   transformers:
   # List of transformers to be enabled.
   # Please refer to https://shiki.style/packages/transformers for the list of supported transformers.
-    - "example1" # You can omit `name` and `option` when no options are required, directly using the string.
-    - name: example2 # When additional option are required, please explicitly set name and option.
+    # You can omit `name` and `option` when no options are required, directly using the string.
+    - "example1"
+    # When additional option are required, please explicitly set name and option.
+    - name: example2
       option:
-      # Options for the transformer, please check the @shikijs/transformer's source code to get the list of supported options
-      # Source code of @shikijs/transformer: https://github.com/shikijs/shiki/tree/main/packages/transformers/src/transformers
+      # Options for the transformer.
+      # Please check the @shikijs/transformer's source code to get the list of supported options
+      # Source code of @shikijs/transformer:
+      # https://github.com/shikijs/shiki/tree/main/packages/transformers/src/transformers
         exampleOption1: exampleValue1
         exampleOption2: exampleValue2
   additional:
@@ -68,7 +72,19 @@ shiki:
       your_alias2: lang_name2
 ```
 
-For example, if you want to mark some lines, you can use Hexo's code block tag plugin (which has been adapted by this plugin):
+Additionally, you can specify multiple themes in the `theme` option:
+```yaml
+shiki:
+  theme:
+    light: one-light
+    dark: one-dark-pro
+    # ...
+```
+See [Dual Themes](https://shiki.style/guide/dual-themes) for how to switch between multiple themes.
+
+
+### Example of Using Transformers
+if you want to mark some lines, you can use Hexo's code block tag plugin (which has been adapted by this plugin):
 ```markdown
 {% codeblock lang:rust mark:2 %}
 fn main() {
@@ -82,8 +98,8 @@ But if you want to mark some lines in backtick code blocks, you can use transfor
 transformers:
   - name: transformerNotationHighlight
     option:
-      classActiveLine: marked # same to Hexo's code block tag marked line's class, default: highlighted
-      classActivePre: has-marked # default: has-highlighted
+      classActiveLine: marked # same to Hexo's code block tag, default: highlighted
+      classActivePre: "" # default: has-highlighted
 ```
 and add some comment to your code block:
 ````markdown
@@ -95,26 +111,17 @@ fn main() {
 ````
 The result is the same as the Hexo code block tag plugin.
 
-Additionally, you can specify multiple themes in the `theme` option:
-```yaml
-shiki:
-  theme:
-    light: one-light
-    dark: one-dark-pro
-    # ...
-```
-See [Dual Themes](https://shiki.style/guide/dual-themes) for how to switch between multiple themes.
-
 ## Bugs
 ### mathjax
 If you are using [hexo-filter-mathjax](https://github.com/next-theme/hexo-filter-mathjax) or any other plugin that uses mathjax to render mathematical formulas locally, you may encounter an `Error: Can't find handler for document` when rendering articles that include code blocks and have mathjax rendering enabled. This is a problem with mathjax, as its LiteDOM adaptor cannot parse complex HTML fragments.
 
 #### Solution
-
 For example, if you are using the hexo-filter-mathjax plugin, modify the [this line](https://github.com/next-theme/hexo-filter-mathjax/blob/20dc61352f8cf4d19425ad1833eb72b467c212ef/index.js#L20C3-L20C40) in the source code:
 ```js
 - data.content = mathjax(data.content);
-+ data.content = data.content.replace(/<span\s+class="math\s+[^"]*">\\[\(\[].*?\\[\)\]]<\/span>/gs, mathjax);
++ data.content = data.content.replace(
++   /<span\s+class="math\s+[^"]*">\\[\(\[].*?\\[\)\]]<\/span>/gs,
++   mathjax);
 ```
 This will prevent rendering errors for complex HTML fragments that result in `Can't find handler for document`.
 
