@@ -34,13 +34,20 @@ shiki:
 The complete configuration is as follows:
 ```yaml
 shiki:
-  theme: one-dark-pro # see https://shiki.style/themes for supported themes.
+  theme: one-dark-pro # Please refer to https://shiki.style/themes for supported themes.
   line_number: false # default: false
   strip_indent: true # default: true
   tab_replace: "  " # default: "  "
   pre_style: true # Preserve the style of the <pre> tag, i.e., the theme's `background-color`. default: true
   default_color: light # Only take effect when using multiple themes. default: light
   css_variable_prefix: --shiki- # Only take effect when using multiple themes. default: --shiki-
+  transformers: # List of transformers to be enabled. Please refer to https://shiki.style/packages/transformers for the list of supported transformers.
+    - "transformerNotationDiff" # You can omit name and option when no settings are required, directly using the string.
+    - name: transformerNotationFocus # When settings are required, please explicitly set name and option.
+      option: # Options for the transformer, please check the transformer's source code to get the list of supported options
+      # Source code of transformers: https://github.com/shikijs/shiki/tree/main/packages/transformers/src/transformers
+        classActiveLine: focused
+        classActivePre: has-focused
   additional:
     themes: # List of the TextMate theme json to be added.
       - path/to/theme.json

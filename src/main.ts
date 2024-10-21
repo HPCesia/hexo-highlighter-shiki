@@ -4,6 +4,33 @@ import type Hexo from "hexo";
 import { HighlightOptions } from "hexo/dist/extend/syntax_highlight";
 import { stripIndent, htmlTag } from "hexo-util";
 import { readFileSync } from "fs";
+import {
+  transformerCompactLineOptions,
+  transformerMetaHighlight,
+  transformerMetaWordHighlight,
+  transformerNotationDiff,
+  transformerNotationErrorLevel,
+  transformerNotationFocus,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+  transformerRemoveLineBreak,
+  transformerRemoveNotationEscape,
+  transformerRenderWhitespace,
+} from "@shikijs/transformers";
+
+const supported_transformers = {
+  transformerCompactLineOptions,
+  transformerMetaHighlight,
+  transformerMetaWordHighlight,
+  transformerNotationDiff,
+  transformerNotationErrorLevel,
+  transformerNotationFocus,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+  transformerRemoveLineBreak,
+  transformerRemoveNotationEscape,
+  transformerRenderWhitespace,
+};
 
 export async function init(hexo: Hexo) {
   const config = Object.assign(
@@ -15,6 +42,7 @@ export async function init(hexo: Hexo) {
       pre_style: true,
       default_color: "light",
       css_variable_prefix: "--shiki-",
+      transformers: [],
       additional: {
         themes: [],
         langs: [],
@@ -43,6 +71,22 @@ export async function init(hexo: Hexo) {
       (theme) => theme in bundledThemes
     )
   );
+
+  // 处理 transformers
+  const transformers = config.transformers
+    .map((transformer) => {
+      if (typeof transformer === "string") {
+        let tfm = supported_transformers[transformer];
+        if (!tfm) return null;
+        return tfm();
+      }
+      let tfm = supported_transformers[transformer["name"]];
+      if (!tfm) return null;
+      let option = transformer["option"];
+      if (!option) return tfm();
+      return tfm(option);
+    })
+    .filter((tfm) => tfm !== null);
 
   // 创建 highlighter
   let highlighter_options = {
@@ -91,13 +135,13 @@ export async function init(hexo: Hexo) {
         pre = highlighter.codeToHtml(code, {
           lang,
           theme: config.theme,
-          transformers: [transformerMarkedLine()],
+          transformers: [transformerMarkedLine()].concat(transformers),
         });
       else
         pre = highlighter.codeToHtml(code, {
           lang,
           themes: config.theme,
-          transformers: [transformerMarkedLine()],
+          transformers: [transformerMarkedLine()].concat(transformers),
           defaultColor: config.default_color,
           cssVariablePrefix: config.css_variable_prefix,
         });

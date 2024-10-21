@@ -40,6 +40,13 @@ shiki:
   pre_style: true # 保留 <pre> 标签的样式，即主题的 `background-color`。
   default_color: light # 仅在同时使用多个主题时生效。默认值：light
   css_variable_prefix: --shiki- # 仅在同时使用多个主题时生效。默认值：--shiki-
+  transformers: # 需要启用的转换器列表。请参阅 https://shiki.style/packages/transformers 以获取支持的转换器列表。
+    - "transformerNotationDiff" # 不需要设置选项时，可省略 name 与 option，直接使用字符串。
+    - name: transformerNotationFocus # 需要设置选项时，请显式设置 name 与 option。
+      option: # 转换器的选项，请查看转换器的源码以获取支持的选项列表
+      # 转换器源码：https://github.com/shikijs/shiki/tree/main/packages/transformers/src/transformers
+        classActiveLine: focused
+        classActivePre: has-focused
   additional:
     themes: # 要添加的主题的 TextMate 主题 json 列表。
     langs: # 要添加的语言的 TextMate 语法 json 列表。
