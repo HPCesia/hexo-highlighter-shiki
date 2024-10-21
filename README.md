@@ -8,9 +8,11 @@ A hexo plugin to use [Shiki](https://github.com/shikijs/shiki) as code block hig
 Hexo v7.0.0+ is required.
 
 ## Features
-- Render code block with Shiki like Hexo default highlighter.
-- Support dual or more themes.
+- Use [Shiki](https://github.com/shikijs/shiki) to render code blocks, and the format is similar to Hexo's default code highlighting (so you don't need to make significant changes to the theme you are currently using).
+- Support switching between multiple themes (you need to write the corresponding styles and scripts yourself).
 - Support custom language.
+- Support custom theme.
+- Support transformers in [@shikijs/transformers](https://shiki.style/packages/transformers).
 
 ## Installation and Configuration
 First, install the plugin:
@@ -29,6 +31,11 @@ shiki:
   theme: github-dark # default: one-dark-pro
   line_number: true # default: false
 ```
+and use
+```shell
+hexo clean && hexo generate
+```
+to enjoy code highlighting powered by Shiki.
 
 ## Configuration Options
 The complete configuration is as follows:
@@ -41,13 +48,16 @@ shiki:
   pre_style: true # Preserve the style of the <pre> tag, i.e., the theme's `background-color`. default: true
   default_color: light # Only take effect when using multiple themes. default: light
   css_variable_prefix: --shiki- # Only take effect when using multiple themes. default: --shiki-
-  transformers: # List of transformers to be enabled. Please refer to https://shiki.style/packages/transformers for the list of supported transformers.
-    - "transformerNotationDiff" # You can omit name and option when no settings are required, directly using the string.
-    - name: transformerNotationFocus # When additional option are required, please explicitly set name and option.
-      option: # Options for the transformer, please check the transformer's source code to get the list of supported options
-      # Source code of transformers: https://github.com/shikijs/shiki/tree/main/packages/transformers/src/transformers
-        classActiveLine: focused
-        classActivePre: has-focused
+  transformers:
+  # List of transformers to be enabled.
+  # Please refer to https://shiki.style/packages/transformers for the list of supported transformers.
+    - "example1" # You can omit `name` and `option` when no options are required, directly using the string.
+    - name: example2 # When additional option are required, please explicitly set name and option.
+      option:
+      # Options for the transformer, please check the @shikijs/transformer's source code to get the list of supported options
+      # Source code of @shikijs/transformer: https://github.com/shikijs/shiki/tree/main/packages/transformers/src/transformers
+        exampleOption1: exampleValue1
+        exampleOption2: exampleValue2
   additional:
     themes: # List of the TextMate theme json to be added.
       - path/to/theme.json
@@ -57,6 +67,33 @@ shiki:
       your_alias1: lang_name1
       your_alias2: lang_name2
 ```
+
+For example, if you want to mark some lines, you can use Hexo's code block tag plugin (which has been adapted by this plugin):
+```markdown
+{% codeblock lang:rust mark:2 %}
+fn main() {
+    println!("Hello, world!");
+}
+{% endcodeblock %}
+```
+
+But if you want to mark some lines in backtick code blocks, you can use transformer:
+```yaml
+transformers:
+  - name: transformerNotationHighlight
+    option:
+      classActiveLine: marked # same to Hexo's code block tag marked line's class, default: highlighted
+      classActivePre: has-marked # default: has-highlighted
+```
+and add some comment to your code block:
+````markdown
+```rust
+fn main() {
+    println!("Hello, world!"); // [!code highlight]
+}
+```
+````
+The result is the same as the Hexo code block tag plugin.
 
 Additionally, you can specify multiple themes in the `theme` option:
 ```yaml
