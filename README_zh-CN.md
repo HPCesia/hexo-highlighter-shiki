@@ -1,5 +1,5 @@
 # Hexo-Highlight-Shiki
-![NPM Version](https://img.shields.io/npm/v/hexo-highlighter-shiki?style=flat)
+[![NPM Version](https://img.shields.io/npm/v/hexo-highlighter-shiki?style=flat)](https://www.npmjs.com/package/hexo-highlighter-shiki)
 
 [English](README.md)丨简体中文
 

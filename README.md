@@ -1,5 +1,5 @@
 # Hexo-Highlight-Shiki
-![NPM Version](https://img.shields.io/npm/v/hexo-highlighter-shiki?style=flat)
+[![NPM Version](https://img.shields.io/npm/v/hexo-highlighter-shiki?style=flat)](https://www.npmjs.com/package/hexo-highlighter-shiki)
 
 English丨[简体中文](README_zh-CN.md)
 
@@ -43,7 +43,7 @@ shiki:
   css_variable_prefix: --shiki- # Only take effect when using multiple themes. default: --shiki-
   transformers: # List of transformers to be enabled. Please refer to https://shiki.style/packages/transformers for the list of supported transformers.
     - "transformerNotationDiff" # You can omit name and option when no settings are required, directly using the string.
-    - name: transformerNotationFocus # When settings are required, please explicitly set name and option.
+    - name: transformerNotationFocus # When additional option are required, please explicitly set name and option.
       option: # Options for the transformer, please check the transformer's source code to get the list of supported options
       # Source code of transformers: https://github.com/shikijs/shiki/tree/main/packages/transformers/src/transformers
         classActiveLine: focused
