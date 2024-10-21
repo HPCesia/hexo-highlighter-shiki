@@ -1,6 +1,6 @@
 {
   "name": "hexo-highlighter-shiki",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A package for Hexo which use Shiki to render code highlight.",
   "main": "dist/index.js",
   "files": [
@@ -30,10 +30,11 @@
   "author": "HPCesia",
   "license": "MIT",
   "devDependencies": {
+    "@shikijs/transformers": "^1.22.0",
     "@types/node": "^22.7.6",
     "esbuild": "^0.24.0",
-    "typescript": "^5.6.3",
-    "shiki": "^1.22.0"
+    "shiki": "^1.22.0",
+    "typescript": "^5.6.3"
   },
   "peerDependencies": {
     "hexo": "^7.0.0"
