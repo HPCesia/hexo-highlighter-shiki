@@ -1,4 +1,6 @@
 # Hexo-Highlight-Shiki
+![NPM Version](https://img.shields.io/npm/v/hexo-highlighter-shiki?style=flat)
+
 [English](README.md)丨简体中文
 
 一个使用 [Shiki](https://github.com/shikijs/shiki) 作为代码块高亮器的 Hexo 插件。
@@ -31,15 +33,18 @@ shiki:
 完整配置如下：
 ```yaml
 shiki:
-  theme: "one-dark-pro" # Theme, see https://shiki.style/themes for supported themes.
+  theme: "one-dark-pro" # 主题，请参阅 https://shiki.style/themes 以获取支持的主题列表。
   line_number: false
   strip_indent: true
   tab_replace: "  "
-  pre_style: true # Preserve the style of the <pre> tag, i.e., the theme's `background-color`.
+  pre_style: true # 保留 <pre> 标签的样式，即主题的 `background-color`。
+  default_color: light # 仅在同时使用多个主题时生效。默认值：light
+  css_variable_prefix: --shiki- # 仅在同时使用多个主题时生效。默认值：--shiki-
   additional:
-    langs: # List of the TextMate grammar json of languages to be added.
+    themes: # 要添加的主题的 TextMate 主题 json 列表。
+    langs: # 要添加的语言的 TextMate 语法 json 列表。
       - path/to/lang_grammar.json
-    lang_alias: # List of the alias of languages.
+    lang_alias: # 语言的别名列表。
       your_alias1: lang_name1
       your_alias2: lang_name2
 ```

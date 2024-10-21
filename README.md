@@ -1,4 +1,6 @@
 # Hexo-Highlight-Shiki
+![NPM Version](https://img.shields.io/npm/v/hexo-highlighter-shiki?style=flat)
+
 English丨[简体中文](README_zh-CN.md)
 
 A hexo plugin to use [Shiki](https://github.com/shikijs/shiki) as code block highlighter.
@@ -33,11 +35,15 @@ The complete configuration is as follows:
 ```yaml
 shiki:
   theme: one-dark-pro # see https://shiki.style/themes for supported themes.
-  line_number: false
-  strip_indent: true
-  tab_replace: "  "
-  pre_style: true # Preserve the style of the <pre> tag, i.e., the theme's `background-color`.
+  line_number: false # default: false
+  strip_indent: true # default: true
+  tab_replace: "  " # default: "  "
+  pre_style: true # Preserve the style of the <pre> tag, i.e., the theme's `background-color`. default: true
+  default_color: light # Only take effect when using multiple themes. default: light
+  css_variable_prefix: --shiki- # Only take effect when using multiple themes. default: --shiki-
   additional:
+    themes: # List of the TextMate theme json to be added.
+      - path/to/theme.json
     langs: # List of the TextMate grammar json of languages to be added.
       - path/to/lang_grammar.json
     lang_alias: # List of the alias of languages.
