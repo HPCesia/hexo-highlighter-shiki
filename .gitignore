@@ -8,5 +8,4 @@ dist
 *.log
 
 # Node
-package-lock.json
 node_modules
