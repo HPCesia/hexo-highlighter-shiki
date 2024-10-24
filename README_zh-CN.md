@@ -44,6 +44,11 @@ shiki:
   line_number: false
   strip_indent: true
   tab_replace: "  "
+  # 在 figure 标签中类名使用语言原名
+  # 例如代码块语言为 'js' 时：
+  # original_lang_name: false => <figure class="highlighter js">
+  # original_lang_name: true => <figure class="highlighter javascript">
+  original_lang_name: false
   pre_style: true # 保留 <pre> 标签的样式，即主题的 `background-color`。
   default_color: light # 仅在同时使用多个主题时生效。默认值：light
   css_variable_prefix: --shiki- # 仅在同时使用多个主题时生效。默认值：--shiki-
@@ -110,7 +115,7 @@ fn main() {
 
 #### 解决方法
 以 hexo-filter-mathjax 插件为例，修改源代码中的[这一行](https://github.com/next-theme/hexo-filter-mathjax/blob/20dc61352f8cf4d19425ad1833eb72b467c212ef/index.js#L20C3-L20C40):
-```js
+```diff
 - data.content = mathjax(data.content);
 + data.content = data.content.replace(
 +   /<span\s+class="math\s+[^"]*">\\[\(\[].*?\\[\)\]]<\/span>/gs,

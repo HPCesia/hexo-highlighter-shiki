@@ -45,6 +45,11 @@ shiki:
   line_number: false # default: false
   strip_indent: true # default: true
   tab_replace: "  " # default: "  "
+  # Use the original language name in the figure tag
+  # For example, when the language of code block is 'js':
+  # original_lang_name: false => <figure class="highlighter js">
+  # original_lang_name: true => <figure class="highlighter javascript">
+  original_lang_name: false
   pre_style: true # Preserve the style of the <pre> tag. default: true
   default_color: light # Only take effect when using multiple themes. default: light
   css_variable_prefix: --shiki- # Only take effect when using multiple themes. default: --shiki-
@@ -117,7 +122,7 @@ If you are using [hexo-filter-mathjax](https://github.com/next-theme/hexo-filter
 
 #### Solution
 For example, if you are using the hexo-filter-mathjax plugin, modify the [this line](https://github.com/next-theme/hexo-filter-mathjax/blob/20dc61352f8cf4d19425ad1833eb72b467c212ef/index.js#L20C3-L20C40) in the source code:
-```js
+```diff
 - data.content = mathjax(data.content);
 + data.content = data.content.replace(
 +   /<span\s+class="math\s+[^"]*">\\[\(\[].*?\\[\)\]]<\/span>/gs,

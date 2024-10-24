@@ -39,10 +39,13 @@ export async function init(hexo: Hexo) {
       line_number: false,
       strip_indent: true,
       tab_replace: "  ",
+      original_lang_name: false,
       pre_style: true,
       default_color: "light",
       css_variable_prefix: "--shiki-",
       transformers: [],
+      // TODO: 增加 `wrap` 选项，与 Hexo 的 highlight.js 渲染行为一致
+      // TODO: 增加 `beautify` 选项以适配更多主题
       additional: {
         themes: [],
         langs: [],
@@ -180,7 +183,11 @@ export async function init(hexo: Hexo) {
     // 合并标签
     const html = htmlTag(
       "figure",
-      { class: `highlight ${lang}` },
+      {
+        class: `highlight ${
+          config.original_lang_name && lang !== "text" ? highlighter.getLanguage(lang).name : lang
+        }`,
+      },
       caption +
         htmlTag(
           "table",
