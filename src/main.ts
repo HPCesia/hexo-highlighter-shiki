@@ -94,7 +94,7 @@ export async function init(hexo: Hexo) {
     themes: themes,
   };
   if (config.additional.lang_alias && Object.keys(config.additional.lang_alias).length > 0) {
-    highlighter_options["langAliases"] = config.additional.lang_alias;
+    highlighter_options["langAlias"] = config.additional.lang_alias;
   }
   const highlighter = await createHighlighter(highlighter_options);
   const supportedLanguages = highlighter.getLoadedLanguages().reduce(
