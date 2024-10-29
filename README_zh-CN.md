@@ -5,7 +5,7 @@
 
 一个使用 [Shiki](https://github.com/shikijs/shiki) 作为代码块高亮器的 Hexo 插件。
 
-需要 Hexo v7.0.0+。
+需要 [Hexo](https://github.com/hexojs/hexo) v7.0.0+。
 
 ## 功能
 - 使用 [Shiki](https://github.com/shikijs/shiki) 渲染代码块，且与 Hexo 默认的代码高亮渲染的格式相似（因此你不需要对你现在使用的主题做很大的修改）。

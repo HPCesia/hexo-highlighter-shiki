@@ -5,7 +5,7 @@ English丨[简体中文](README_zh-CN.md)
 
 A hexo plugin to use [Shiki](https://github.com/shikijs/shiki) as code block highlighter.
 
-Hexo v7.0.0+ is required.
+[Hexo](https://github.com/hexojs/hexo) v7.0.0+ is required.
 
 ## Features
 - Use [Shiki](https://github.com/shikijs/shiki) to render code blocks, and the format is similar to Hexo's default code highlighting (so you don't need to make significant changes to the theme you are currently using).
@@ -90,7 +90,8 @@ See [Dual Themes](https://shiki.style/guide/dual-themes) for how to switch betwe
 You can also specify some languages individually in `original_lang_name` to not convert or only convert them:
 ```yaml
 original_lang_name:
-  # Set to true to exclude the languages listed in `langs`, otherwise only convert the languages in `langs`.
+  # Set to true to exclude the languages listed in `langs`,
+  # otherwise only convert the languages in `langs`.
   exclude: true
   # Must be an array
   langs:
