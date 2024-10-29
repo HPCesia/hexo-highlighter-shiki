@@ -1,6 +1,6 @@
 {
   "name": "hexo-highlighter-shiki",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A package for Hexo which use Shiki to render code highlight.",
   "main": "dist/index.js",
   "files": [
