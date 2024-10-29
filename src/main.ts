@@ -100,7 +100,7 @@ export async function init(hexo: Hexo) {
     highlighter_options["langAlias"] = config.additional.lang_alias;
   }
   const highlighter = await createHighlighter(highlighter_options);
-  const supportedLanguages = highlighter.getLoadedLanguages().reduce(
+  const supported_languages = highlighter.getLoadedLanguages().reduce(
     (acc, lang) => {
       acc[lang] = true;
       return acc;
@@ -112,13 +112,30 @@ export async function init(hexo: Hexo) {
     }
   );
 
+  // 处理语言转换原名
+  const useOringinalLangName = (lang) => {
+    if (lang === "text") return false;
+    if (typeof config.original_lang_name === "boolean") return config.original_lang_name;
+    const exclude = config.original_lang_name.exclude || false;
+    const langs = config.original_lang_name.langs || [];
+    return exclude ? !langs.includes(lang) : langs.includes(lang);
+  };
+
+  const originalLangName = (lang) => {
+    const name = highlighter.getLanguage(lang).name;
+    if (typeof config.original_lang_name === "boolean") return name;
+    const origin = config.original_lang_name.change_origin || {};
+    if (name in origin) return origin[name];
+    return name;
+  };
+
   const hexoHighlighter = (code: string, options: HighlightOptions) => {
     var code = config.strip_indent ? (stripIndent(code) as string) : code;
     code = config.tab_replace ? code.replace(/\t/g, config.tab_replace) : code;
 
     // 处理代码语言
     let lang = options.lang;
-    if (!lang || !supportedLanguages[lang]) {
+    if (!lang || !supported_languages[lang]) {
       lang = "text";
     }
 
@@ -184,9 +201,7 @@ export async function init(hexo: Hexo) {
     const html = htmlTag(
       "figure",
       {
-        class: `highlight ${
-          config.original_lang_name && lang !== "text" ? highlighter.getLanguage(lang).name : lang
-        }`,
+        class: `highlight ${useOringinalLangName(lang) ? originalLangName(lang) : lang}`,
       },
       caption +
         htmlTag(

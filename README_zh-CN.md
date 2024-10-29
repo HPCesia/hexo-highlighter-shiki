@@ -52,13 +52,15 @@ shiki:
   pre_style: true # 保留 <pre> 标签的样式，即主题的 `background-color`。
   default_color: light # 仅在同时使用多个主题时生效。默认值：light
   css_variable_prefix: --shiki- # 仅在同时使用多个主题时生效。默认值：--shiki-
-  transformers:
   # 需要启用的转换器列表。请参阅 https://shiki.style/packages/transformers 以获取支持的转换器列表。
-    - "example1" # 不需要设置选项时，可省略 `name` 与 `option`，直接使用字符串。
-    - name: example2 # 需要设置选项时，请显式设置 name 与 option。
-      option:
+  transformers:
+    # 不需要设置选项时，可省略 `name` 与 `option`，直接使用字符串。
+    - "example1"
+    # 需要设置选项时，请显式设置 name 与 option。
+    - name: example2
       # 转换器的选项，请查看转换器的源码以获取支持的选项列表
       # 转换器源码：https://github.com/shikijs/shiki/tree/main/packages/transformers/src/transformers
+      option:
         exampleOption1: exampleValue1
         exampleOption2: exampleValue2
   additional:
@@ -80,6 +82,22 @@ shiki:
     # ...
 ```
 在 [Dual Themes](https://shiki.style/guide/dual-themes) 中查看如何切换多个主题。
+
+同时你还可以在 `original_lang_name` 中单独指定一些语言进行或不进行转换：
+```yaml
+original_lang_name:
+  # 为真时将不转换 langs 内的语言，反之则只转换 langs 内的语言
+  exclude: true
+  # 必须为数组
+  langs:
+    - shell
+    - bash
+    - zsh
+  # 改变语言原名
+  change_origin:
+    fortran-free-form: fortran
+```
+参阅 [Languages | Shiki](https://shiki.style/languages) 查看语言的原名（ID）。
 
 ### 转换器使用示例
 如果你想标记某些行，你可以使用 Hexo 的代码块标签插件（本插件对其做了适配）：

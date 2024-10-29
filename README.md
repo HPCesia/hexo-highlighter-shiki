@@ -53,18 +53,18 @@ shiki:
   pre_style: true # Preserve the style of the <pre> tag. default: true
   default_color: light # Only take effect when using multiple themes. default: light
   css_variable_prefix: --shiki- # Only take effect when using multiple themes. default: --shiki-
-  transformers:
   # List of transformers to be enabled.
   # Please refer to https://shiki.style/packages/transformers for the list of supported transformers.
+  transformers:
     # You can omit `name` and `option` when no options are required, directly using the string.
     - "example1"
     # When additional option are required, please explicitly set name and option.
     - name: example2
-      option:
       # Options for the transformer.
       # Please check the @shikijs/transformer's source code to get the list of supported options
       # Source code of @shikijs/transformer:
       # https://github.com/shikijs/shiki/tree/main/packages/transformers/src/transformers
+      option:
         exampleOption1: exampleValue1
         exampleOption2: exampleValue2
   additional:
@@ -87,6 +87,21 @@ shiki:
 ```
 See [Dual Themes](https://shiki.style/guide/dual-themes) for how to switch between multiple themes.
 
+You can also specify some languages individually in `original_lang_name` to not convert or only convert them:
+```yaml
+original_lang_name:
+  # Set to true to exclude the languages listed in `langs`, otherwise only convert the languages in `langs`.
+  exclude: true
+  # Must be an array
+  langs:
+    - shell
+    - bash
+    - zsh
+  # Change the original language name
+  change_origin:
+    fortran-free-form: fortran
+```
+Refer to [Languages | Shiki](https://shiki.style/languages) to view the original names (IDs) of languages.
 
 ### Example of Using Transformers
 if you want to mark some lines, you can use Hexo's code block tag plugin (which has been adapted by this plugin):
