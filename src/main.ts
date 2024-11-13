@@ -69,6 +69,7 @@ export async function init(hexo: Hexo) {
     for (const extra_theme of [].concat(config.additional.themes)) {
       additional_themes.push(JSON.parse(readFileSync(extra_theme, "utf8")));
     }
+  // 处理主题
   const themes = additional_themes.concat(
     (typeof config.theme === "string" ? [config.theme] : Object.values(config.theme)).filter(
       (theme) => theme in bundledThemes
@@ -151,7 +152,7 @@ export async function init(hexo: Hexo) {
       };
     };
     try {
-      if (config.theme === "string")
+      if (typeof config.theme === "string")
         pre = highlighter.codeToHtml(code, {
           lang,
           theme: config.theme,
