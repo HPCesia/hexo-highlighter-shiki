@@ -1,7 +1,7 @@
 # Hexo-Highlight-Shiki
 [![NPM Version](https://img.shields.io/npm/v/hexo-highlighter-shiki?style=flat)](https://www.npmjs.com/package/hexo-highlighter-shiki)
 
-English丨[简体中文](README_zh-CN.md)
+English丨[简体中文](README.zh-CN.md)
 
 A hexo plugin to use [Shiki](https://github.com/shikijs/shiki) as code block highlighter.
 
