@@ -1,4 +1,5 @@
 # Hexo-Highlight-Shiki
+
 [![NPM Version](https://img.shields.io/npm/v/hexo-highlighter-shiki?style=flat)](https://www.npmjs.com/package/hexo-highlighter-shiki)
 
 [English](README.md)丨简体中文
@@ -8,6 +9,7 @@
 需要 [Hexo](https://github.com/hexojs/hexo) v7.0.0+。
 
 ## 功能
+
 - 使用 [Shiki](https://github.com/shikijs/shiki) 渲染代码块，且与 Hexo 默认的代码高亮渲染的格式相似（因此你不需要对你现在使用的主题做很大的修改）。
 - 支持多主题切换（需要自行编写对应的样式与脚本）。
 - 支持自定义语言。
@@ -15,29 +17,38 @@
 - 支持 [@shikijs/transformers](https://shiki.style/packages/transformers) 中的转换器。
 
 ## 安装与配置
+
 首先，安装本插件：
+
 ```shell
 npm install hexo-highlighter-shiki --save
 ```
 
 然后在 `config.yml` 中切换代码高亮引擎：
+
 ```yaml
 syntax_highlighter: shiki
 ```
 
 最后配置 `shiki`：
+
 ```yaml
 shiki:
   theme: one-dark-pro
 ```
+
 并使用
+
 ```shell
 hexo clean && hexo generate
 ```
+
 来享受由 Shiki 提供的代码高亮功能。
 
 ## 配置项
+
 完整配置如下：
+
 ```yaml
 shiki:
   theme: "one-dark-pro" # 主题，请参阅 https://shiki.style/themes 以获取支持的主题列表。
@@ -74,6 +85,7 @@ shiki:
 ```
 
 额外地，你可以在 `theme` 选项中指定多个主题：
+
 ```yaml
 shiki:
   theme:
@@ -81,9 +93,11 @@ shiki:
     dark: one-dark-pro
     # ...
 ```
+
 在 [Dual Themes](https://shiki.style/guide/dual-themes) 中查看如何切换多个主题。
 
 同时你还可以在 `original_lang_name` 中单独指定一些语言进行或不进行转换：
+
 ```yaml
 original_lang_name:
   # 为真时将不转换 langs 内的语言，反之则只转换 langs 内的语言
@@ -97,19 +111,23 @@ original_lang_name:
   change_origin:
     fortran-free-form: fortran
 ```
+
 参阅 [Languages | Shiki](https://shiki.style/languages) 查看语言的原名（ID）。
 
 ### 转换器使用示例
+
 如果你想标记某些行，你可以使用 Hexo 的代码块标签插件（本插件对其做了适配）：
+
 ```markdown
 {% codeblock lang:rust mark:2 %}
 fn main() {
-    println!("Hello, world!");
+println!("Hello, world!");
 }
 {% endcodeblock %}
 ```
 
 但是，如果你想在反引号代码块中标记某些行，你可以使用转换器：
+
 ```yaml
 transformers:
   - name: transformerNotationHighlight
@@ -117,7 +135,9 @@ transformers:
       classActiveLine: marked # 与 Hexo 的代码块标签标记行的类相同，默认值：highlighted
       classActivePre: "" # 默认值：has-highlighted
 ```
+
 并在你的代码块中添加一些注释：
+
 ````markdown
 ```rust
 fn main() {
@@ -125,28 +145,37 @@ fn main() {
 }
 ```
 ````
+
 结果与 Hexo 的代码块标签插件相同。
 
 ## Bugs
+
 ### mathjax
+
 如果你正在使用 [hexo-filter-mathjax](https://github.com/next-theme/hexo-filter-mathjax) 或其他任意在本地使用 mathjax 渲染数学公式的插件，在渲染包含代码块且开启 mathjax 渲染的文章时可能会出现 `Error: Can't find handler for document`。这是 mathjax 的问题，mathjax 的 LiteDOM adaptor 无法解析复杂的 HTML 片段。
 
 #### 解决方法
+
 以 hexo-filter-mathjax 插件为例，修改源代码中的[这一行](https://github.com/next-theme/hexo-filter-mathjax/blob/20dc61352f8cf4d19425ad1833eb72b467c212ef/index.js#L20C3-L20C40):
+
 ```diff
 - data.content = mathjax(data.content);
 + data.content = data.content.replace(
 +   /<span\s+class="math\s+[^"]*">\\[\(\[].*?\\[\)\]]<\/span>/gs,
 +   mathjax);
 ```
+
 这可以避免对那些复杂的 HTML 片段进行渲染导致的 `Can't find handler for document` 错误。
 
 #### 相关 Issues
+
 - [Error in applying html the markdown file #26](https://github.com/next-theme/hexo-filter-mathjax/issues/26)
 - [Can't find handler for document #265](https://github.com/mathjax/MathJax-src/issues/265)
 
 ## 感谢
+
 本插件基于
+
 - [ArcticLampyrid/hexo-shiki-highlighter](https://github.com/ArcticLampyrid/hexo-shiki-highlighter)
 - [nova1751/hexo-shiki-plugin](https://github.com/nova1751/hexo-shiki-plugin)
 
