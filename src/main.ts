@@ -32,8 +32,40 @@ const supported_transformers = {
   transformerRenderWhitespace,
 };
 
+type SupportedTransformers = keyof typeof supported_transformers;
+
+interface TransformerConfig {
+  name: SupportedTransformers;
+  option?: Record<string, any> | undefined;
+}
+
+interface OriginalLangNameConfig {
+  exclude?: boolean;
+  langs?: string[];
+  change_origin?: Record<string, string>;
+}
+
+interface AdditionalConfig {
+  themes?: string[];
+  langs?: string[];
+  lang_alias?: Record<string, string>;
+}
+
+interface HighlighterConfig {
+  theme?: string | Record<string, string>;
+  line_number?: boolean;
+  strip_indent?: boolean;
+  tab_replace?: string;
+  original_lang_name?: boolean | OriginalLangNameConfig;
+  pre_style?: boolean;
+  default_color?: string;
+  css_variable_prefix?: string;
+  transformers?: (SupportedTransformers | TransformerConfig)[];
+  additional?: AdditionalConfig;
+}
+
 export async function init(hexo: Hexo) {
-  const config = Object.assign(
+  const config: HighlighterConfig = Object.assign(
     {
       theme: "one-dark-pro",
       line_number: false,
@@ -88,6 +120,7 @@ export async function init(hexo: Hexo) {
       if (!tfm) return null;
       let option = transformer["option"];
       if (!option) return tfm();
+      // @ts-ignore
       return tfm(option);
     })
     .filter((tfm) => tfm !== null);
@@ -114,7 +147,7 @@ export async function init(hexo: Hexo) {
   );
 
   // 处理语言转换原名
-  const useOringinalLangName = (lang) => {
+  const useOringinalLangName = (lang: string) => {
     if (lang === "text") return false;
     if (typeof config.original_lang_name === "boolean") return config.original_lang_name;
     const exclude = config.original_lang_name.exclude || false;
@@ -122,7 +155,7 @@ export async function init(hexo: Hexo) {
     return exclude ? !langs.includes(lang) : langs.includes(lang);
   };
 
-  const originalLangName = (lang) => {
+  const originalLangName = (lang: string) => {
     const name = highlighter.getLanguage(lang).name;
     if (typeof config.original_lang_name === "boolean") return name;
     const origin = config.original_lang_name.change_origin || {};
@@ -205,12 +238,12 @@ export async function init(hexo: Hexo) {
         class: `highlight ${useOringinalLangName(lang) ? originalLangName(lang) : lang}`,
       },
       caption +
-        htmlTag(
-          "table",
-          {},
-          htmlTag("tbody", {}, htmlTag("tr", {}, td_gutter + td_code, false), false),
-          false
-        ),
+      htmlTag(
+        "table",
+        {},
+        htmlTag("tbody", {}, htmlTag("tr", {}, td_gutter + td_code, false), false),
+        false
+      ),
       false
     );
     return html;
