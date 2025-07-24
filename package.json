@@ -29,11 +29,11 @@
   "author": "HPCesia",
   "license": "MIT",
   "devDependencies": {
-    "@shikijs/transformers": "^1.22.0",
-    "@types/node": "^22.7.6",
-    "esbuild": "^0.24.0",
-    "shiki": "^1.22.0",
-    "typescript": "^5.6.3"
+    "@shikijs/transformers": "^3.8.1",
+    "@types/node": "^22.16.5",
+    "esbuild": "^0.25.8",
+    "shiki": "^3.8.1",
+    "typescript": "^5.8.3"
   },
   "peerDependencies": {
     "hexo": "^7.0.0",
